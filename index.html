@@ -3,79 +3,270 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kokish Landing</title>
+<title>Kokish</title>
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0a0a0a;
-  color: #00ffe0;
-}
+* {margin:0;padding:0;box-sizing:border-box;}
 
-.section {
-  position: relative;
+body {
   height: 100vh;
-  width: 100%;
+  background: radial-gradient(circle at center, #1b4cff 0%, #09152e 80%);
+  color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  perspective: 1000px;
-}
-
-#name {
-  font-size: 12vw;
-  font-weight: bold;
-  color: #00ffe0;
-  text-transform: uppercase;
-  text-align: center;
+  font-family: 'Trebuchet MS', sans-serif;
+  overflow: hidden;
   position: relative;
-  transform-style: preserve-3d;
-  text-shadow: 0 0 30px #00ffe0, 0 0 60px #00ffe0;
 }
 
-#bottom {
-  font-size: 3rem;
-  text-align: center;
-  padding: 50px 0;
-  color: #ffe600;
-  text-shadow: 0 0 20px #ffe600;
+h1 {
+  font-size: 8rem;
+  letter-spacing: 5px;
+  text-shadow: 0 0 20px rgba(90,160,255,0.8);
+  animation: float 6s ease-in-out infinite;
+  transition: color 0.3s, text-shadow 0.3s;
+  position: relative;
+  z-index: 10;
 }
 
-.layer {
+@keyframes float {
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
+}
+
+.bubble {
   position: absolute;
-  top:0; left:0;
-  width: 100%;
-  height: 100%;
-  background: url('https://images.unsplash.com/photo-1612831660371-7612eb80b16d?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
-  background-size: cover;
-  z-index: -1;
-  transform: translateZ(0);
+  bottom: 60px;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0,100,255,0.3);
+  text-shadow: 0 0 10px rgba(90,160,255,0.7);
+  animation: bubbleGlow 3s ease-in-out infinite;
 }
 
+@keyframes bubbleGlow {
+  0%,100%{box-shadow:0 0 15px rgba(0,100,255,0.3);}
+  50%{box-shadow:0 0 30px rgba(0,150,255,0.6);}
+}
+
+.dot {
+  position:absolute;
+  border-radius:50%;
+  background: rgba(255,255,255,0.1);
+  animation: drift linear infinite;
+}
+
+@keyframes drift {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
+
+#themesBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0,0,0,0.5);
+  border: 2px solid #00ffe0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #00ffe0;
+  font-weight: bold;
+  z-index: 1000;
+  transition: all 0.3s;
+}
+#themesBtn:hover{background: rgba(0,0,0,0.7);}
+
+#themesMenu {
+  position: fixed;
+  bottom: 60px;
+  left: 20px;
+  background: rgba(0,0,0,0.6);
+  padding: 15px;
+  border-radius: 12px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.themeOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+.themeOption:hover {
+  background: rgba(255,255,255,0.1);
+}
+.colorPreview {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  border: 1px solid #fff;
+}
+
+.corruptedWarning {
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  color: red;
+  font-size: 3rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  display:none;
+  z-index:2000;
+}
+
+#subspaceFlicker {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:5;
+  opacity:0;
+  background: linear-gradient(0deg, #fff 10%, #000 90%);
+}
 </style>
 </head>
 <body>
 
-<div class="section">
-  <div class="layer"></div>
-  <div id="name">Kokish</div>
+<h1>Kokish</h1>
+<div class="bubble">so aero</div>
+
+<div id="themesBtn">Themes</div>
+<div id="themesMenu">
+  <div class="themeOption" data-color="#00ffe0" data-shadow="0 0 20px #00ffe0"> 
+    <div class="colorPreview" style="background:#00ffe0"></div>
+    <div class="colorPreview" style="background:#000"></div>
+    <div class="colorPreview" style="background:#ffe600"></div>
+    Classic Aero
+  </div>
+  <div class="themeOption" data-color="#ffe600" data-shadow="0 0 20px #ffe600">
+    <div class="colorPreview" style="background:#ffe600"></div>
+    <div class="colorPreview" style="background:#000"></div>
+    <div class="colorPreview" style="background:#00ffe0"></div>
+    Sunny Glow
+  </div>
+  <div class="themeOption" data-color="#ff00ff" data-shadow="0 0 20px #ff00ff">
+    <div class="colorPreview" style="background:#ff00ff"></div>
+    <div class="colorPreview" style="background:#000"></div>
+    <div class="colorPreview" style="background:#00ffff"></div>
+    Vaporwave
+  </div>
+  <div class="themeOption" data-color="#fff" data-shadow="0 0 15px #fff" id="subspaceTheme">
+    <div class="colorPreview" style="background:#fff"></div>
+    <div class="colorPreview" style="background:#000"></div>
+    <div class="colorPreview" style="background:#fff"></div>
+    Subspace
+  </div>
+  <div class="themeOption" id="corruptedTheme" data-color="#ff0000" data-shadow="0 0 20px #ff0000">
+    <div class="colorPreview" style="background:#ff0000"></div>
+    <div class="colorPreview" style="background:#000"></div>
+    <div class="colorPreview" style="background:#ff0000"></div>
+    CORRUPTED
+  </div>
 </div>
 
-<div class="section">
-  <div id="bottom">bacon crackers and fruit snax</div>
-</div>
+<div class="corruptedWarning" id="corruptedWarning">⚠️ EPISODE WARNING ⚠️<br>Holding mouse over CORRUPTED too long may cause flashing effects</div>
+<div id="subspaceFlicker"></div>
 
 <script>
-const nameEl = document.getElementById('name');
-window.addEventListener('scroll', ()=>{
-  const scrollY = window.scrollY;
-  const viewportHeight = window.innerHeight;
-  const rotation = scrollY / viewportHeight * 15; 
-  nameEl.style.transform = `translateZ(0) rotateX(${rotation}deg) rotateY(${rotation}deg)`;
+const h1 = document.querySelector('h1');
+const themesBtn = document.getElementById('themesBtn');
+const themesMenu = document.getElementById('themesMenu');
+const corruptedTheme = document.getElementById('corruptedTheme');
+const corruptedWarning = document.getElementById('corruptedWarning');
+const subspaceFlicker = document.getElementById('subspaceFlicker');
+
+themesBtn.addEventListener('click', ()=>{themesMenu.style.display = themesMenu.style.display==='flex'?'none':'flex';});
+
+document.querySelectorAll('.themeOption').forEach(option=>{
+  if(option.id==='corruptedTheme') return;
+  option.addEventListener('click', ()=>{
+    const color = option.dataset.color;
+    const shadow = option.dataset.shadow;
+    h1.style.color = color;
+    h1.style.textShadow = shadow;
+
+    // Subspace flicker logic
+    if(option.id==='subspaceTheme'){
+      subspaceFlicker.style.opacity = 0.1;
+      let flick = setInterval(()=>{
+        subspaceFlicker.style.opacity = Math.random()*0.2;
+      },100);
+      setTimeout(()=>{clearInterval(flick); subspaceFlicker.style.opacity=0;},5000);
+    } else {
+      subspaceFlicker.style.opacity=0;
+    }
+  });
 });
+
+let holdTimer;
+corruptedTheme.addEventListener('mouseenter', ()=>{
+  corruptedWarning.style.display='flex';
+  let duration=0;
+  holdTimer = setInterval(()=>{
+    duration+=100;
+    document.body.style.transform = `translate(${Math.sin(duration/50)*5}px, ${Math.cos(duration/50)*5}px)`;
+    if(duration>=2000){document.body.style.transform='';clearInterval(holdTimer);}
+  },100);
+});
+corruptedTheme.addEventListener('mouseleave', ()=>{
+  clearInterval(holdTimer);
+  document.body.style.transform='';
+  corruptedWarning.style.display='none';
+});
+
+corruptedTheme.addEventListener('click', ()=>{
+  document.body.innerHTML='';
+  document.body.style.background='#000';
+  const canvas = document.createElement('canvas');
+  document.body.appendChild(canvas);
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  function randomCube(){return Math.random()*20+10;}
+  function animate(){
+    ctx.fillStyle='black';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=0;i<200;i++){
+      ctx.fillStyle='red';
+      const x=Math.random()*canvas.width;
+      const y=Math.random()*canvas.height;
+      const size=randomCube();
+      ctx.fillRect(x,y,size,size);
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+});
+
+// Floating dots
+for (let i = 0; i < 15; i++) {
+  const dot = document.createElement('div');
+  dot.classList.add('dot');
+  dot.style.width = dot.style.height = Math.random() * 5 + 'px';
+  dot.style.left = Math.random() * 100 + 'vw';
+  dot.style.animationDuration = 8 + Math.random() * 8 + 's';
+  document.body.appendChild(dot);
+}
 </script>
 </body>
 </html>

@@ -6,7 +6,6 @@
 <title>Kokish</title>
 <style>
 * {margin:0;padding:0;box-sizing:border-box;}
-
 body {
   height: 100vh;
   background: radial-gradient(circle at center, #1b4cff 0%, #09152e 80%);
@@ -18,23 +17,21 @@ body {
   font-family: 'Trebuchet MS', sans-serif;
   overflow: hidden;
   position: relative;
+  transition: background 0.5s, color 0.5s;
 }
-
 h1 {
   font-size: 8rem;
   letter-spacing: 5px;
   text-shadow: 0 0 20px rgba(90,160,255,0.8);
   animation: float 6s ease-in-out infinite;
-  transition: color 0.3s, text-shadow 0.3s;
+  transition: color 0.5s, text-shadow 0.5s;
   position: relative;
   z-index: 10;
 }
-
 @keyframes float {
   0%,100%{transform:translateY(0px);}
   50%{transform:translateY(-10px);}
 }
-
 .bubble {
   position: absolute;
   bottom: 60px;
@@ -47,25 +44,23 @@ h1 {
   box-shadow: 0 0 15px rgba(0,100,255,0.3);
   text-shadow: 0 0 10px rgba(90,160,255,0.7);
   animation: bubbleGlow 3s ease-in-out infinite;
+  transition: background 0.5s, box-shadow 0.5s, color 0.5s;
 }
-
 @keyframes bubbleGlow {
   0%,100%{box-shadow:0 0 15px rgba(0,100,255,0.3);}
   50%{box-shadow:0 0 30px rgba(0,150,255,0.6);}
 }
-
 .dot {
   position:absolute;
   border-radius:50%;
   background: rgba(255,255,255,0.1);
   animation: drift linear infinite;
+  transition: background 0.5s;
 }
-
 @keyframes drift {
   from {transform: translateY(100vh);}
   to {transform: translateY(-10vh);}
 }
-
 #themesBtn {
   position: fixed;
   bottom: 20px;
@@ -81,7 +76,6 @@ h1 {
   transition: all 0.3s;
 }
 #themesBtn:hover{background: rgba(0,0,0,0.7);}
-
 #themesMenu {
   position: fixed;
   bottom: 60px;
@@ -94,7 +88,6 @@ h1 {
   gap: 10px;
   z-index: 1000;
 }
-
 .themeOption {
   display: flex;
   align-items: center;
@@ -104,16 +97,13 @@ h1 {
   border-radius: 8px;
   transition: all 0.3s;
 }
-.themeOption:hover {
-  background: rgba(255,255,255,0.1);
-}
+.themeOption:hover {background: rgba(255,255,255,0.1);}
 .colorPreview {
   width: 15px;
   height: 15px;
   border-radius: 3px;
   border: 1px solid #fff;
 }
-
 .corruptedWarning {
   position: fixed;
   top: 0;
@@ -131,7 +121,6 @@ h1 {
   display:none;
   z-index:2000;
 }
-
 #subspaceFlicker {
   position: absolute;
   top:0;
@@ -152,25 +141,25 @@ h1 {
 
 <div id="themesBtn">Themes</div>
 <div id="themesMenu">
-  <div class="themeOption" data-color="#00ffe0" data-shadow="0 0 20px #00ffe0"> 
+  <div class="themeOption" data-bg="radial-gradient(circle at center, #1b4cff 0%, #09152e 80%)" data-color="#00ffe0" data-shadow="0 0 20px #00ffe0" data-dot="#fff">
     <div class="colorPreview" style="background:#00ffe0"></div>
     <div class="colorPreview" style="background:#000"></div>
     <div class="colorPreview" style="background:#ffe600"></div>
     Classic Aero
   </div>
-  <div class="themeOption" data-color="#ffe600" data-shadow="0 0 20px #ffe600">
+  <div class="themeOption" data-bg="radial-gradient(circle at center, #ffe600 0%, #000000 80%)" data-color="#ffe600" data-shadow="0 0 20px #ffe600" data-dot="#000">
     <div class="colorPreview" style="background:#ffe600"></div>
     <div class="colorPreview" style="background:#000"></div>
     <div class="colorPreview" style="background:#00ffe0"></div>
     Sunny Glow
   </div>
-  <div class="themeOption" data-color="#ff00ff" data-shadow="0 0 20px #ff00ff">
+  <div class="themeOption" data-bg="radial-gradient(circle at center, #ff00ff 0%, #000000 80%)" data-color="#ff00ff" data-shadow="0 0 20px #ff00ff" data-dot="#fff">
     <div class="colorPreview" style="background:#ff00ff"></div>
     <div class="colorPreview" style="background:#000"></div>
     <div class="colorPreview" style="background:#00ffff"></div>
     Vaporwave
   </div>
-  <div class="themeOption" data-color="#fff" data-shadow="0 0 15px #fff" id="subspaceTheme">
+  <div class="themeOption" data-bg="#fff" data-color="#000" data-shadow="0 0 15px #000" data-dot="#000" id="subspaceTheme">
     <div class="colorPreview" style="background:#fff"></div>
     <div class="colorPreview" style="background:#000"></div>
     <div class="colorPreview" style="background:#fff"></div>
@@ -189,6 +178,8 @@ h1 {
 
 <script>
 const h1 = document.querySelector('h1');
+const bubble = document.querySelector('.bubble');
+const dots = document.querySelectorAll('.dot');
 const themesBtn = document.getElementById('themesBtn');
 const themesMenu = document.getElementById('themesMenu');
 const corruptedTheme = document.getElementById('corruptedTheme');
@@ -200,24 +191,27 @@ themesBtn.addEventListener('click', ()=>{themesMenu.style.display = themesMenu.s
 document.querySelectorAll('.themeOption').forEach(option=>{
   if(option.id==='corruptedTheme') return;
   option.addEventListener('click', ()=>{
+    const bg = option.dataset.bg;
     const color = option.dataset.color;
     const shadow = option.dataset.shadow;
+    const dotColor = option.dataset.dot;
+    document.body.style.background = bg;
     h1.style.color = color;
     h1.style.textShadow = shadow;
+    bubble.style.color = color;
+    bubble.style.boxShadow = shadow;
+    bubble.style.borderColor = color;
+    dots.forEach(d => d.style.background = dotColor);
 
-    // Subspace flicker logic
     if(option.id==='subspaceTheme'){
       subspaceFlicker.style.opacity = 0.1;
-      let flick = setInterval(()=>{
-        subspaceFlicker.style.opacity = Math.random()*0.2;
-      },100);
+      let flick = setInterval(()=>{subspaceFlicker.style.opacity = Math.random()*0.2;},100);
       setTimeout(()=>{clearInterval(flick); subspaceFlicker.style.opacity=0;},5000);
-    } else {
-      subspaceFlicker.style.opacity=0;
-    }
+    } else {subspaceFlicker.style.opacity=0;}
   });
 });
 
+// CORRUPTED logic
 let holdTimer;
 corruptedTheme.addEventListener('mouseenter', ()=>{
   corruptedWarning.style.display='flex';
@@ -233,7 +227,6 @@ corruptedTheme.addEventListener('mouseleave', ()=>{
   document.body.style.transform='';
   corruptedWarning.style.display='none';
 });
-
 corruptedTheme.addEventListener('click', ()=>{
   document.body.innerHTML='';
   document.body.style.background='#000';

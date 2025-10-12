@@ -3,70 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kokish Aero</title>
+<title>Kokish Bio</title>
 <style>
 html, body {
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
   height: 100%;
   overflow: hidden;
-  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
-  background: url('bliss.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+body {
+  display: flex;
+}
+
+.left {
+  width: 50%;
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-h1 {
-  font-size: 8rem;
-  font-weight: bold;
-  color: #00c0ff;
-  text-transform: uppercase;
-  letter-spacing: 5px;
   position: relative;
-  padding: 20px 40px;
-  border-radius: 15px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(0,0,0,0.15));
-  box-shadow: 0 4px 25px rgba(0,0,0,0.6), 0 0 50px rgba(0,192,255,0.5) inset;
-  backdrop-filter: blur(5px);
-  cursor: default;
   overflow: hidden;
 }
 
-h1::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.3), transparent 40%);
-  transform: rotate(45deg);
-  animation: shine 3s infinite linear;
+.right {
+  width: 50%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 50px rgba(0,255,255,0.2);
 }
 
-@keyframes shine {
-  0% { transform: rotate(45deg) translateX(-200%) translateY(-200%); }
-  100% { transform: rotate(45deg) translateX(200%) translateY(200%); }
+h1 {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  color: #00ffe0;
+  text-shadow: 0 0 20px #00ffe0;
 }
 
-.bubble {
-  position: absolute;
-  bottom: 50px;
+h2 {
   font-size: 2rem;
-  color: #fff;
-  padding: 10px 25px;
-  border-radius: 50px;
-  background: rgba(0,192,255,0.2);
-  box-shadow: 0 0 15px rgba(0,192,255,0.5);
-  backdrop-filter: blur(5px);
-  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+  margin-bottom: 15px;
+  color: #ffe600;
 }
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 </style>
 </head>
 <body>
-  <h1>Kokish</h1>
-  <div class="bubble">so aero</div>
+  <div class="left">
+    <canvas id="codeCanvas"></canvas>
+  </div>
+  <div class="right">
+    <h1>Kokish</h1>
+    <h2>Bio</h2>
+    <p>Just a dude who’s all about glossy early-2000s aesthetics, neon vibes, and making things look effortlessly cool. Loves cyber/retro vibes, sleek UI design, and textures that pop with turquoise, black, and yellow energy.</p>
+    <h2>Favorites</h2>
+    <p>Colors: Turquoise, Black + Yellow combo<br>
+       Style: Frutiger Aero, Vista-era gloss, glossy web aesthetics<br>
+       Vibe: Slightly chaotic, always “so aero”</p>
+    <h2>Fun Stuff</h2>
+    <p>Enjoys messing with visual effects, floating text, cyber patterns, and pseudo hacker-y vibes. Likes interactive, eye-catching design that doesn’t take itself too seriously.</p>
+  </div>
+<script>
+const canvas = document.getElementById('codeCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth/2;
+canvas.height = window.innerHeight;
+
+const lines = [
+  "for(i=0;i<10;i++){console.log('Kokish')}",
+  "while(true){glitch();}",
+  "if(aesthetic){turquoise=true; yellow=false;}",
+  "function aero(){return 'so aero';}",
+  "console.log('%c 0x00FFA0', 'color: #00ffe0')",
+  "int main(){ return 0; }",
+  "while(1){loop();}",
+  "hack_the_gloss();"
+];
+
+let yPositions = Array(lines.length).fill(0);
+
+function drawCode(){
+  ctx.fillStyle = "rgba(0,0,0,0.1)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.font = "20px monospace";
+  ctx.fillStyle = "#00ffe0";
+  for(let i=0;i<lines.length;i++){
+    ctx.fillText(lines[i], 10, yPositions[i]);
+    yPositions[i] += 1 + Math.random()*2;
+    if(yPositions[i] > canvas.height) yPositions[i] = -20;
+  }
+  requestAnimationFrame(drawCode);
+}
+
+drawCode();
+
+window.addEventListener('resize',()=>{
+  canvas.width = window.innerWidth/2;
+  canvas.height = window.innerHeight;
+});
+</script>
 </body>
 </html>

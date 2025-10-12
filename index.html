@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hello, Kokish</title>
-  </head>
-  <body style="background-color:#0d1117; color:white; text-align:center; font-family:sans-serif;">
-    <h1>this is just a test</h1>
-    <p>fruit snacks</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kokish</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at center, #1b4cff 0%, #09152e 80%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Trebuchet MS', sans-serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 8rem;
+      letter-spacing: 5px;
+      text-shadow: 0 0 20px rgba(90, 160, 255, 0.8);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: 60px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      padding: 10px 25px;
+      font-size: 1.2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
+      text-shadow: 0 0 10px rgba(90, 160, 255, 0.7);
+      animation: bubbleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes bubbleGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(0, 100, 255, 0.3); }
+      50% { box-shadow: 0 0 30px rgba(0, 150, 255, 0.6); }
+    }
+
+    /* Optional subtle floating dots */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: drift 10s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-10vh); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Kokish</h1>
+  <div class="bubble">so aero</div>
+
+  <!-- optional floating dots for a spacey feel -->
+  <script>
+    for (let i = 0; i < 15; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      dot.style.width = dot.style.height = Math.random() * 5 + 'px';
+      dot.style.left = Math.random() * 100 + 'vw';
+      dot.style.animationDuration = 8 + Math.random() * 8 + 's';
+      document.body.appendChild(dot);
+    }
+  </script>
+</body>
 </html>

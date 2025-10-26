@@ -1,116 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KOKISH | Portfolio</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: white;
-      overflow-x: hidden;
-    }
-
-    /* Parallax banner */
-    .banner {
-      position: relative;
-      height: 100vh;
-      background: linear-gradient(180deg, #4aa8ff, #0077ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* Floating background motion */
-    .banner::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
-      animation: float 10s ease-in-out infinite alternate;
-    }
-
-    @keyframes float {
-      from { transform: translateY(-20px) rotate(0deg); }
-      to { transform: translateY(20px) rotate(3deg); }
-    }
-
-    /* White half-circle */
-    .circle {
-      position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
-      height: 100px;
-      background: white;
-      border-top-left-radius: 200px;
-      border-top-right-radius: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: black;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
-      z-index: 10;
-    }
-
-    /* Main content */
-    .content {
-      background: #000;
-      min-height: 100vh;
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    .content h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .content p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-      color: #aaa;
-    }
-  </style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Bio</title>
+    </head>
 <body>
 
-  <div class="banner" id="banner">
-    <div class="circle">KOKISH</div>
-  </div>
+    <header>
+        <h1>Hello, I'm [Your Name] 👋</h1>
+        <p class="tagline">A brief, catchy description of what you do!</p>
+    </header>
 
-  <div class="content">
-    <h2>About Me</h2>
-    <p>
-      Hey! I’m Kokish — a Roblox developer and designer who loves creating unique game worlds with strong aesthetics and atmosphere.  
-      More sections coming soon!
-    </p>
-  </div>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am a [Your Profession/Hobby] with a passion for [Your Passion]. I've spent the last X years [mentioning key experience or projects].</p>
+            <p>My goal is to [mention a future goal or what you're currently working on].</p>
+        </section>
 
-  <script>
-    // Simple parallax effect for banner
-    window.addEventListener("scroll", function() {
-      const banner = document.getElementById("banner");
-      let offset = window.pageYOffset;
-      banner.style.backgroundPositionY = offset * 0.5 + "px";
-    });
-  </script>
+        <section id="skills">
+            <h2>Skills & Interests</h2>
+            <ul>
+                <li>Web Development (HTML, CSS, JavaScript)</li>
+                <li>[Your Second Skill or Interest]</li>
+                <li>[Your Third Skill or Interest]</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 [Your Name]. Connect with me below!</p>
+        <nav class="social-links">
+            <a href="[Your LinkedIn URL]">LinkedIn</a> | 
+            <a href="[Your GitHub URL]">GitHub</a>
+        </nav>
+    </footer>
 
 </body>
 </html>
